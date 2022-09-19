@@ -47,7 +47,6 @@ def train_model(model, train_loader, test_loader, train_loader_1, device, args):
 def run_epoch(model, train_loader, optimizer, center, device, is_angular):
     total_loss, total_num = 0.0, 0
     for ((img1, img2), _) in tqdm(train_loader, desc='Train...'):
-
         img1, img2 = img1.to(device), img2.to(device)
 
         optimizer.zero_grad()
@@ -68,7 +67,7 @@ def run_epoch(model, train_loader, optimizer, center, device, is_angular):
 
         total_num += img1.size(0)
         total_loss += loss.item() * img1.size(0)
-
+    torch.save(model.state_dict(), "latest.pth")
     return total_loss / (total_num)
 
 
